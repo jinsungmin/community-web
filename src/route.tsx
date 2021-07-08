@@ -7,6 +7,7 @@ const Layout = async(() => import('./pages'))
 const Page404 = async(() => import('./pages/error/Page404'))
 const Page500 = async(() => import('./pages/error/Page500'))
 
+const Auth = async(() => import("./pages/auth"))
 const ForgotPassword = async(() => import('./pages/auth/ForgotPassword'))
 const SignIn = async(() => import("./pages/auth/SignIn"))
 const SignUp = async(() => import("./pages/auth/SignUp"))
@@ -24,19 +25,28 @@ export const routes = [
     exact: true
   },
   {
-    path: '/auth/forgot-password',
-    component: ForgotPassword,
-    exact: true
-  },
-  {
-    path: '/auth/sign-in',
-    component: SignIn,
-    exact: true
-  },
-  {
-    path: '/auth/sign-up',
-    component: SignUp,
-    exact: true
+    path: '/auth',
+    component: Auth,
+    routes: [
+      {
+        title: '로그인',
+        path: '/auth/sign-in',
+        component: SignIn,
+        exact: true
+      },
+      {
+        title: '회원가입',
+        path: '/auth/sign-up',
+        component: SignUp,
+        exact: true
+      },
+      {
+        title: '비밀번호 찾기',
+        path: '/auth/forgot-password',
+        component: ForgotPassword,
+        exact: true
+      }
+    ]
   },
   {
     path: '/',

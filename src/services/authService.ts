@@ -101,7 +101,7 @@ export function signIn(credentials: SignInType) {
 
 export function verifyEmail(credentials: VerifyEmailType) {
   return new Promise(async (resolve, reject) => {
-      const path = '/verifications/email'
+      const path = '/verifications'
       try {
         const response: any = await new ApiRoute({
           path: path,

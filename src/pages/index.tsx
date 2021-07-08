@@ -105,6 +105,7 @@ const Layout: React.FC<DashboardPropsType> = ({
             history.push('/home')
         }
     }, [history, user])
+    console.log('111')
 
     return (
         <Root>
