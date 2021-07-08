@@ -8,9 +8,7 @@ import {
 } from "../../types/post";
 import {
     findAll,
-    create,
-    updateOne,
-    deleteOne
+    findOne
 } from "../../services/postService";
 
 export function getPosts(credentials: FindAllType) {
@@ -33,20 +31,19 @@ export function getPosts(credentials: FindAllType) {
     }
 }
 
-export function createPosts(credentials: CreateType) {
+export function getPost(id:number) {
     return async (dispatch: AppDispatchType) => {
-        dispatch({type: types.POST_CREATE_REQUEST});
+        dispatch({type: types.POST_DETAIL_REQUEST});
 
-        return create(credentials)
+        return findOne(id)
             .then((res: any) => {
-                console.log(res)
                 dispatch({
-                    type: types.POST_CREATE_SUCCESS,
+                    type: types.POST_DETAIL_SUCCESS,
                     ...res.data
                 });
             })
             .catch(async (error) => {
-                dispatch({type: types.POST_CREATE_FAILURE});
+                dispatch({type: types.POST_DETAIL_FAILURE});
                 throw error;
             });
     }

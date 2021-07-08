@@ -16,7 +16,22 @@ export async function findAll(credentials: FindAllType) {
                     params: credentials,
                     method: 'get'
                 }).request()
+                resolve(response)
+            } catch (e) {
+                reject(e)
+            }
+        }
+    )
+}
 
+export async function findOne(id: number) {
+    return new Promise(async (resolve, reject) => {
+            const path = `/posts/${id}`
+            try {
+                const response: any = await new ApiRoute({
+                    path: path,
+                    method: 'get'
+                }).request()
                 resolve(response)
             } catch (e) {
                 reject(e)

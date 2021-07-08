@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import {getAuthReducer} from "../../../redux/reducers";
-import {getPosts} from "../../../redux/actions/post"
+import {getPost} from "../../../redux/actions/post"
 import Loader from '../../../components/Loader'
 
-import List from './List'
+import Detail from './Detail'
 
-export default (props: any) => {
-    const {history} = props
+export default ({match:{path, params}, history}: any) => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState<any>(null)
     const {user}: any = useSelector(getAuthReducer);
@@ -15,7 +14,7 @@ export default (props: any) => {
     useEffect(() => {
         const init = async () => {
             try {
-                dispatch(getPosts({start: 0, perPage:25}))
+                dispatch(getPost(params.id))
             } catch(e) {
                 console.log(e)
                 history.push(`/error/500`)
@@ -25,8 +24,8 @@ export default (props: any) => {
         init().then(() => {
             setLoading(false)
         })
-    }, [props])
+    }, [history])
 
     if (loading) return <Loader />
-    return <List user={user} props={props} />
+    return <Detail user={user} history={history} />
 }

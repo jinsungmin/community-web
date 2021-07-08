@@ -12,6 +12,8 @@ export type PostType = {
   userId: number
   title: string
   content: string
+  ratings: number
+  ratingList?: Array<{id: number, userId: number, type: string}>
   createdAt: Date
   updatedAt: Date
 }
