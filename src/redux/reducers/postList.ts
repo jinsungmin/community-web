@@ -20,6 +20,7 @@ export default function reducer(
 ): {post: PostType | undefined} {
     switch (actions.type) {
         case types.POST_LIST_SUCCESS:
+            console.log(actions)
             return {
                 ...state,
                 post: {

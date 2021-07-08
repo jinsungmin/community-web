@@ -99,13 +99,7 @@ const Layout: React.FC<DashboardPropsType> = ({
             dispatch(getAuth())
     }, [dispatch])
 
-    useEffect(() => {
-        if (!user) {
-            console.log('123')
-            history.push('/home')
-        }
-    }, [history, user])
-    console.log('111')
+
 
     return (
         <Root>

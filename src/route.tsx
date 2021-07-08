@@ -11,6 +11,8 @@ const Auth = async(() => import("./pages/auth"))
 const ForgotPassword = async(() => import('./pages/auth/ForgotPassword'))
 const SignIn = async(() => import("./pages/auth/SignIn"))
 const SignUp = async(() => import("./pages/auth/SignUp"))
+
+const PostList = async(() => import("./pages/post/List"))
 //const UserEdit = async(() => import("./pages/user/Edit"))
 
 export const routes = [
@@ -52,6 +54,12 @@ export const routes = [
     path: '/',
     component: Layout,
     routes: [
+      {
+        title: '게시글',
+        path: '/post',
+        component: PostList,
+        exact: true
+      },
       {
         title: '계정',
         path: '/edit',
