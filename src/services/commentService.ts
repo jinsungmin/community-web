@@ -1,15 +1,15 @@
 import {
-    PostType,
+    CommentType,
     CreateType,
     UpdateType,
     FindAllType,
-} from "../types/post";
+} from "../types/comment";
 
 import {ApiRoute} from "./index";
 
 export async function findAll(credentials: FindAllType) {
     return new Promise(async (resolve, reject) => {
-            const path = '/posts'
+            const path = '/comments'
             try {
                 const response: any = await new ApiRoute({
                     path: path,
@@ -26,7 +26,7 @@ export async function findAll(credentials: FindAllType) {
 
 export async function findOne(id: number) {
     return new Promise(async (resolve, reject) => {
-            const path = `/posts/${id}`
+            const path = `/comments/${id}`
             try {
                 const response: any = await new ApiRoute({
                     path: path,
@@ -42,7 +42,7 @@ export async function findOne(id: number) {
 
 export async function create(credentials: CreateType) {
     return new Promise(async (resolve, reject) => {
-            const path = '/posts'
+            const path = '/comments'
             try {
                 const response: any = await new ApiRoute({
                     path: path,
@@ -59,7 +59,7 @@ export async function create(credentials: CreateType) {
 
 export async function updateOne(credentials: UpdateType) {
     return new Promise(async (resolve, reject) => {
-            const path = '/posts'
+            const path = '/comments'
             try {
                 const response: any = await new ApiRoute({
                     path: path,
@@ -76,7 +76,7 @@ export async function updateOne(credentials: UpdateType) {
 
 export async function deleteOne(id: number) {
     return new Promise(async (resolve, reject) => {
-            const path = `/posts/${id}`
+            const path = `/comments/${id}`
             try {
                 const response: any = await new ApiRoute({
                     path: path,

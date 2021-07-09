@@ -1,15 +1,15 @@
 import {
-    PostType,
+    RatingType,
+    FindOneType,
     CreateType,
-    UpdateType,
-    FindAllType,
-} from "../types/post";
+    FindAllType
+} from "../types/rating";
 
 import {ApiRoute} from "./index";
 
 export async function findAll(credentials: FindAllType) {
     return new Promise(async (resolve, reject) => {
-            const path = '/posts'
+            const path = '/ratings'
             try {
                 const response: any = await new ApiRoute({
                     path: path,
@@ -24,9 +24,9 @@ export async function findAll(credentials: FindAllType) {
     )
 }
 
-export async function findOne(id: number) {
+export async function findOne(id: FindOneType) {
     return new Promise(async (resolve, reject) => {
-            const path = `/posts/${id}`
+            const path = `/ratings/${id}`
             try {
                 const response: any = await new ApiRoute({
                     path: path,
@@ -42,7 +42,7 @@ export async function findOne(id: number) {
 
 export async function create(credentials: CreateType) {
     return new Promise(async (resolve, reject) => {
-            const path = '/posts'
+            const path = '/ratings'
             try {
                 const response: any = await new ApiRoute({
                     path: path,
@@ -57,26 +57,9 @@ export async function create(credentials: CreateType) {
     )
 }
 
-export async function updateOne(credentials: UpdateType) {
-    return new Promise(async (resolve, reject) => {
-            const path = '/posts'
-            try {
-                const response: any = await new ApiRoute({
-                    path: path,
-                    params: credentials,
-                    method: 'put'
-                }).request()
-                resolve(response)
-            } catch (e) {
-                reject(e)
-            }
-        }
-    )
-}
-
 export async function deleteOne(id: number) {
     return new Promise(async (resolve, reject) => {
-            const path = `/posts/${id}`
+            const path = `/ratings/${id}`
             try {
                 const response: any = await new ApiRoute({
                     path: path,

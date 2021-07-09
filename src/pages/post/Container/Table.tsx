@@ -13,21 +13,20 @@ import {
     Divider
 } from "@material-ui/core";
 import {spacing} from "@material-ui/system";
-import moment from 'moment';
 
 const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 
 const PostTable = ({post, history}: any) => {
     return (
-        <Card mb={6} style={{margin: 0}}>
+        <Card mb={6} style={{margin: 0, width: '100%'}}>
             <Paper>
                 <Table style={{backgroundColor: 'white', marginTop: '20px'}}>
                     <TableBody>
                         {post && post.data.map((row: any, index: number) => (
                             <>
                                 <div key={index}
-                                     style={{padding: '5px 10px'}}
+                                     style={{padding: '5px 10px', cursor: 'pointer'}}
                                      onClick={() => history.push(`/post/detail/${row.id}`)}
                                 >
                                     <Typography>

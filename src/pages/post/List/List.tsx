@@ -10,7 +10,7 @@ import {
     withWidth
 } from "@material-ui/core";
 
-import Table from './Container/Table'
+import Table from '../Container/Table'
 
 const List = ({user, props}: any) => {
     const {history} = props
