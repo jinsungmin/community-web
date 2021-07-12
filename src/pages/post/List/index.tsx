@@ -25,7 +25,7 @@ export default (props: any) => {
         init().then(() => {
             setLoading(false)
         })
-    }, [props])
+    }, [])
 
     if (loading) return <Loader />
     return <List user={user} props={props} />

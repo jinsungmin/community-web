@@ -17,9 +17,6 @@ const List = ({user, props}: any) => {
     const classes = useStyles()
 
     const {post}: any = useSelector(getPostListReducer);
-    useEffect(() => {
-        console.log(post)
-    }, [post])
 
     return (
         <div className={classes.content}>

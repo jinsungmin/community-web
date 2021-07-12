@@ -20,7 +20,6 @@ export default ({match:{path, params}, history}: any) => {
                 const {data}: any = await findAll({userId: user.id, postId: params.id})
                 setRating(data.data[0])
                 dispatch(getPost(params.id))
-                dispatch(getComments({postId: params.id, start: 0, perPage: 10}))
             } catch(e) {
                 console.log(e)
                 history.push(`/error/500`)

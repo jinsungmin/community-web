@@ -6,14 +6,13 @@ import Create from './Create'
 import {getAuthReducer} from "../../../../redux/reducers";
 import {getComments} from "../../../../redux/actions/comment";
 
-export default ({postId, commentId, history}: any) => {
+export default ({postId, commentId, history, type}: any) => {
     const {user}: any = useSelector(getAuthReducer);
     const dispatch = useDispatch()
 
     const createComment = async ({submit, ...data}: any) => {
-        if (data.type === 'post') {
-            data.postId = postId
-        } else {
+        data.postId = postId
+        if (type === 'comment') {
             data.parentId = commentId
         }
         data.userId = user.id

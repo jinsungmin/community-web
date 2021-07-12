@@ -17,7 +17,7 @@ const Create = ({createComment, userId}: any) => {
 
     const submitBtn = async () => {
         try {
-            await createComment({content, type: 'post'})
+            await createComment({content})
             setContent('')
         } catch (error) {
             console.log(error)

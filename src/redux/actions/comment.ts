@@ -15,6 +15,7 @@ export function getComments(credentials: FindAllType) {
     return async (dispatch: AppDispatchType) => {
         dispatch({type: types.COMMENT_LIST_REQUEST});
 
+        console.log(credentials)
         return findAll(credentials)
             .then((res: any) => {
                 console.log(res)

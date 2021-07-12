@@ -14,7 +14,7 @@ const Comment = ({postId, history}: any) => {
                     댓글
                 </Typography>
             </div>
-            <Create postId={postId} history={history} />
+            <Create postId={postId} history={history} type="post"/>
             <List postId={postId} history={history} />
         </div>
     )
