@@ -57,9 +57,9 @@ export async function create(credentials: CreateType) {
     )
 }
 
-export async function updateOne(credentials: UpdateType) {
+export async function updateOne(id: number, credentials: UpdateType) {
     return new Promise(async (resolve, reject) => {
-            const path = '/posts'
+            const path = `/posts/${id}`
             try {
                 const response: any = await new ApiRoute({
                     path: path,

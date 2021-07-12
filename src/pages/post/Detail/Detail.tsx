@@ -22,10 +22,15 @@ const Detail = ({history, user, handleRating, rating}: any) => {
     return (
         <div className={classes.content}>
             {post && <div style={{display: 'block'}}>
-                <div className={classes.subTitle}>
+                <div style={{height: '50px', lineHeight: '50px'}}>
                     <Typography variant="h4" style={{float: 'left', marginTop: '10px'}}>
                         {post.title}
                     </Typography>
+                    {user.id === post.userId && <Button variant="contained" color="primary" className={classes.createBtn}
+                            onClick={(e: any) => history.push(`/post/edit/${post.id}`)}
+                    >
+                        수정
+                    </Button>}
                 </div>
                 <Card style={{marginTop: '10px', backgroundColor: 'white', minHeight: '400px', width: '100%'}}>
 

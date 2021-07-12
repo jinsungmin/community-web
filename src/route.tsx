@@ -15,6 +15,7 @@ const SignUp = async(() => import("./pages/auth/SignUp"))
 const PostList = async(() => import("./pages/post/List"))
 const PostDetail = async(() => import("./pages/post/Detail"))
 const PostCreate = async(() => import("./pages/post/Create"))
+const PostEdit = async(() => import("./pages/post/Edit"))
 //const UserEdit = async(() => import("./pages/user/Edit"))
 
 export const routes = [
@@ -64,7 +65,7 @@ export const routes = [
       },
       {
         title: '게시글 상세조회',
-        path: '/post/detail/:id?',
+        path: '/post/detail',
         component: PostDetail,
         exact: true
       },
@@ -72,6 +73,12 @@ export const routes = [
         title: '게시글 등록',
         path: '/post/create',
         component: PostCreate,
+        exact: true
+      },
+      {
+        title: '게시글 수정',
+        path: '/post/edit/:id?',
+        component: PostEdit,
         exact: true
       },
       {

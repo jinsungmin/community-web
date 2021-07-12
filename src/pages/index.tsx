@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from "react";
 import styled, {createGlobalStyle} from "styled-components/macro";
-import { GlobalStyleProps } from "../theme/styles";
+import {GlobalStyleProps} from "../theme/styles";
 import {Helmet} from "react-helmet";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import {useHistory} from 'react-router-dom';
 
 import {useSelector, useDispatch} from "react-redux";
 import {getAuthReducer} from "../redux/reducers";
 
 import {spacing} from "@material-ui/system";
 import {
-    Hidden,
     CssBaseline,
     Paper as MuiPaper,
     withWidth,
@@ -19,6 +17,7 @@ import {
 
 import {isWidthUp} from "@material-ui/core/withWidth";
 import {getAuth} from "../redux/actions/auth";
+import {getCategories} from "../redux/actions/category";
 
 const drawerWidth = 200;
 
@@ -43,15 +42,6 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
 const Root = styled.div`
   display: flex;
   min-height: 100vh;
-`;
-
-const Drawer = styled.div`
-  background-color: ${(props) => props.theme.palette.background.default};
-
-  ${(props) => props.theme.breakpoints.up("md")} {
-    width: ${drawerWidth}px;
-    flex-shrink: 0;
-  }
 `;
 
 const AppContent = styled.div`
@@ -85,8 +75,6 @@ const Layout: React.FC<DashboardPropsType> = ({
                                               }) => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [title, setTitle] = useState('');
-    const history = useHistory();
-    const {user}: any = useSelector(getAuthReducer);
     const dispatch = useDispatch()
 
     const handleDrawerToggle = () => {
@@ -94,35 +82,25 @@ const Layout: React.FC<DashboardPropsType> = ({
     };
 
     useEffect(() => {
+        dispatch(getCategories({}))
         const url = window.location.pathname.split('/')[1]
         if (url)
             dispatch(getAuth())
-    }, [dispatch])
-
-
+    }, [])
 
     return (
         <Root>
             <Helmet title="커뮤니티"/>
             <CssBaseline/>
             <GlobalStyle/>
-            {user && <Drawer>
-                <Hidden mdUp implementation="js">
-                    <Sidebar
-                        PaperProps={{style: {width: drawerWidth}}}
-                        variant="temporary"
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                    />
-                </Hidden>
-                <Hidden smDown implementation="css">
-                    <Sidebar
-                        PaperProps={{style: {width: drawerWidth}}}
-                    />
-                </Hidden>
-            </Drawer>}
             <AppContent>
                 <Header onDrawerToggle={handleDrawerToggle} category={title}/>
+                <Sidebar
+                    PaperProps={{style: {width: drawerWidth}}}
+                    variant="temporary"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                />
                 <MainContent p={isWidthUp("lg", width) ? 12 : 5}>
                     {children}
                 </MainContent>

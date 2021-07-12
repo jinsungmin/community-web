@@ -67,7 +67,7 @@ const AppBarComponent: React.FC<AppBarProps> = ({onDrawerToggle}) => {
 
   return (
     <React.Fragment>
-      <AppBar position="sticky" elevation={0} style={{backgroundColor: '#1B4086', borderBottom: '1px solid #dddddd'}}>
+      <AppBar position="sticky" elevation={0} style={{backgroundColor: '#1B4086'}}>
         <Toolbar>
           <Grid container alignItems="center">
             <Grid item style={{width: '100%', display: 'flex', padding: '0 1%'}}>

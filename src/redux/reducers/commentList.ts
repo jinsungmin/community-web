@@ -20,7 +20,6 @@ export default function reducer(
 ): {comments: CommentType | undefined} {
     switch (actions.type) {
         case types.COMMENT_LIST_SUCCESS:
-            console.log(actions)
             return {
                 ...state,
                 comments: {

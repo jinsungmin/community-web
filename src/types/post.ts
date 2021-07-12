@@ -4,11 +4,13 @@ export type FindAllType = {
   order?: string
   start: number
   perPage: number
+  categoryId?: number
   userId?: number
 };
 
 export type PostType = {
   id: number
+  categoryId: number
   userId: number
   title: string
   content: string
@@ -19,12 +21,14 @@ export type PostType = {
 }
 
 export type CreateType = {
+  categoryId: number
   userId: number
   title: string
   content: string
 }
 
 export type UpdateType = {
+  categoryId: number
   title: string
   content?: string
 }

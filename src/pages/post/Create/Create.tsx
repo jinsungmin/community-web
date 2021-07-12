@@ -12,11 +12,17 @@ import {spacing} from "@material-ui/system";
 import SubmitBtn from "../../../components/SubmitBtn";
 import Loader from '../../../components/Loader'
 import TextInput from '../Container/TextInput'
+import SelectInput from '../Container/SelectInput'
+import {useSelector} from "react-redux";
+import {getCategoryListReducer} from "../../../redux/reducers";
 
 const Card = styled(MuiCard)(spacing);
 
 const Create = ({createPost, userId}: any) => {
-    const [post, setPost] = useState({title: '', content: ''})
+    const [category, setCategory] = useState<any>({id: -1, name: ''})
+    const [title, setTitle] = useState<any>()
+    const [content, setContent] = useState<any>()
+    const {categories}: any = useSelector(getCategoryListReducer)
     const [loading, setLoading] = useState(false)
     const [submit, setSubmit] = useState(false)
     const classes = useStyles()
@@ -30,7 +36,7 @@ const Create = ({createPost, userId}: any) => {
         const create = async () => {
             if (submit) {
                 try {
-                    await createPost(post)
+                    await createPost({category, title, content})
                 } catch (error) {
                     console.log(error)
                 }
@@ -47,8 +53,13 @@ const Create = ({createPost, userId}: any) => {
                 </Typography>
             </div>
                 {loading && <Loader/>}
-                <Card style={{backgroundColor: 'white', marginBottom: '20px'}}>
-                    <TextInput input={post.title} field='title' handleChange={setPost} classes={classes}/>
+                <Card style={{backgroundColor: 'white', padding: '20px', marginBottom: '20px', display: 'flex'}}>
+                    <div style={{flex: 1}}>
+                        <SelectInput categories={categories} input={category} field='categoryId' handleChange={setCategory} classes={classes}/>
+                    </div>
+                    <div style={{flex: 4}}>
+                        <TextInput input={title} field='title' handleChange={setTitle} classes={classes}/>
+                    </div>
                 </Card>
                 <Card style={{backgroundColor: 'white', height:'400px', marginBottom: '20px'}}>
                 </Card>

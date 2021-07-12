@@ -1,32 +1,30 @@
 import React, {useCallback, useState, useEffect} from 'react'
-import {useSelector} from 'react-redux'
-import {create} from '../../../services/postService'
-
-import Create from './Create'
+import {useDispatch, useSelector} from 'react-redux'
+import {updateOne} from '../../../services/postService'
+import {getPost} from "../../../redux/actions/post"
+import Edit from './Edit'
 import {getAuthReducer} from "../../../redux/reducers";
 import Loader from "../../../components/Loader";
 
 export default ({match: {path, params}, history}: any) => {
+    const dispatch = useDispatch()
     const {user}: any = useSelector(getAuthReducer);
     const [loading, setLoading] = useState<any>(null)
 
-    const createPost = async ({submit, ...data}: any) => {
+    useEffect(() => {
+        dispatch(getPost(params.id))
+    }, [])
+
+    const editPost = async ({submit, ...data}: any) => {
         // 임시 (에디터 적용 전)
         data.content = '테스트 내용입니다.'
         data.userId = user.id
-        data.categoryId = data.category.id
 
         setLoading(true)
 
-        await create(data).then((res: any) => {
-            if (res.status === 201) {
-                console.log('create:', res.data)
-                history.push({
-                    pathname: `/post`,
-                    search: `?mid=${data.category.name}`,
-                    state: {id: data.categoryId}
-                })
-            }
+        await updateOne(Number(params.id), data).then((res: any) => {
+            console.log('update:', res.data)
+            history.push(`/post`)
             setLoading(false)
         }).catch((error) => {
             setLoading(false)
@@ -36,5 +34,6 @@ export default ({match: {path, params}, history}: any) => {
     }
 
     if (loading) return <Loader />
-    return <Create createPost={createPost} userId={user.id}/>
+    return <Edit editPost={editPost} userId={user.id} />
+
 }

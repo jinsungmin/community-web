@@ -17,7 +17,8 @@ import {spacing} from "@material-ui/system";
 const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 
-const PostTable = ({post, history}: any) => {
+const PostTable = ({post, history, location}: any) => {
+    const {search} = location
     return (
         <Card mb={6} style={{margin: 0, width: '100%'}}>
             <Paper>
@@ -27,7 +28,10 @@ const PostTable = ({post, history}: any) => {
                             <>
                                 <div key={index}
                                      style={{padding: '5px 10px', cursor: 'pointer'}}
-                                     onClick={() => history.push(`/post/detail/${row.id}`)}
+                                     onClick={() => history.push({
+                                         pathname: `/post/detail`,
+                                         search: search + `&id=${row.id}`
+                                     })}
                                 >
                                     <Typography>
                                         {row.title}

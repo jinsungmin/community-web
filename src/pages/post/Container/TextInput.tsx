@@ -14,17 +14,15 @@ const StyledTextField = withStyles(() => ({
 
 const TextInput = ({handleChange, input, field, classes}: any) => {
     return (
-        <div style={{margin: '10px 10%'}}>
-            <StyledTextField
-                name={field}
-                variant="outlined"
-                multiline
-                className={classes.input}
-                value={input ? input : ''}
-                margin="none"
-                onChange={(e) => handleChange({[field]: e.target.value})}
-            />
-        </div>
+        <StyledTextField
+            name={field}
+            variant="outlined"
+            multiline
+            className={classes.input}
+            value={input ? input : ''}
+            margin="none"
+            onChange={(e) => handleChange(e.target.value)}
+        />
     )
 }
 

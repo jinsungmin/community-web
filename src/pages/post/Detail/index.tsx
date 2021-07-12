@@ -2,13 +2,15 @@ import React, {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import {getAuthReducer} from "../../../redux/reducers";
 import {getPost} from "../../../redux/actions/post"
-import {getComments} from "../../../redux/actions/comment"
 import Loader from '../../../components/Loader'
 import {create, deleteOne, findAll} from "../../../services/ratingService"
 
 import Detail from './Detail'
+const qs = require('qs')
 
-export default ({match:{path, params}, history}: any) => {
+export default (props: any) => {
+    const {location, history} = props
+    const params = qs.parse(location.search, {ignoreQueryPrefix: true})
     const dispatch = useDispatch()
     const [loading, setLoading] = useState<any>(null)
     const {user}: any = useSelector(getAuthReducer);
@@ -29,7 +31,7 @@ export default ({match:{path, params}, history}: any) => {
         init().then(() => {
             setLoading(false)
         })
-    }, [history])
+    }, [])
 
     const handleRating = async (type: number) => {
         const props = {
