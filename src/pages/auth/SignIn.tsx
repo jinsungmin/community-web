@@ -56,7 +56,11 @@ const SignIn = () => {
 
                 await dispatch(getAuth())
 
-                history.push("/post");
+                history.push({
+                    pathname: `/post`,
+                    search: `?mid=일반`,
+                    state: {id: 43242312}
+                })
             } catch (error) {
                 console.log(error);
                 setAlert({title: '로그인 안내', msg: '로그인에 실패하였습니다. 이메일과 패스워드를 확인해주세요.', open: true})

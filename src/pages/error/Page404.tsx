@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 import {Helmet} from "react-helmet";
 
@@ -27,6 +27,7 @@ const Wrapper = styled.div`
 `;
 
 function Page404() {
+  const history = useHistory()
   return (
     <Box style={{position: 'relative', height: '100%'}}>
       <Wrapper>
@@ -42,8 +43,11 @@ function Page404() {
         </Typography>
 
         <Button
-          component={Link}
-          to="/home"
+          onClick={(e) => history.push({
+            pathname: `/post`,
+            search: `?mid=일반`,
+            state: {id: 43242312}
+          })}
           variant="contained"
           color="secondary"
           mt={2}

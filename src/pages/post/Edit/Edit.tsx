@@ -12,13 +12,15 @@ import {spacing} from "@material-ui/system";
 import SubmitBtn from "../../../components/SubmitBtn";
 import Loader from '../../../components/Loader'
 import TextInput from '../Container/TextInput'
+import EditorInput from '../Container/EditorInput'
 import {useSelector} from "react-redux";
 import {getPostDetailReducer} from "../../../redux/reducers";
 
 const Card = styled(MuiCard)(spacing);
 
 const Edit = ({editPost, userId}: any) => {
-    const [input, setInput] = useState<any>({title:'', content: ''})
+    const [title, setTitle] = useState<any>()
+    const [content, setContent] = useState<any>()
     const [loading, setLoading] = useState(false)
     const [submit, setSubmit] = useState(false)
     const {post}: any = useSelector(getPostDetailReducer);
@@ -26,9 +28,10 @@ const Edit = ({editPost, userId}: any) => {
 
     useEffect(() => {
         if (post) {
-            setInput({title: post.title, content: post.content})
+            setTitle(post.title)
+            setContent(post.content)
         }
-        console.log(post)
+        console.log('test::', post)
     }, [post])
 
     const submitCheck = () => {
@@ -40,7 +43,7 @@ const Edit = ({editPost, userId}: any) => {
         const edit = async () => {
             if (submit) {
                 try {
-                    await editPost(input)
+                    await editPost({title, content})
                 } catch (error) {
                     console.log(error)
                 }
@@ -50,7 +53,6 @@ const Edit = ({editPost, userId}: any) => {
     }, [submit])
 
     return (
-        input.title ?
         <div className={classes.content}>
             <div style={{height: '50px', lineHeight: '50px'}}>
                 <Typography variant="h4" style={{marginTop: '10px'}}>
@@ -59,14 +61,15 @@ const Edit = ({editPost, userId}: any) => {
             </div>
             {loading && <Loader/>}
             <Card style={{backgroundColor: 'white', marginBottom: '20px'}}>
-                <TextInput input={input.title} field='title' handleChange={setInput} classes={classes}/>
+                <TextInput input={title} field='title' handleChange={setTitle} classes={classes}/>
             </Card>
-            <Card style={{backgroundColor: 'white', height:'400px', marginBottom: '20px'}}>
+            <Card style={{backgroundColor: 'white', height:'500px', marginBottom: '20px'}}>
+                <EditorInput content={content} setContent={setContent} />
             </Card>
             <div style={{textAlign: 'center'}}>
                 <SubmitBtn submitCheck={submitCheck} title='등록 확인' text='수정 완료' msg='게시물을 수정하시겠습니까?' setSubmit={setSubmit}/>
             </div>
-        </div> : <></>
+        </div>
     )
 }
 

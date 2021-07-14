@@ -12,6 +12,7 @@ import {
 import {useStyles} from "../../../css/style";
 import styled from "styled-components/macro";
 import {spacing} from "@material-ui/system";
+import EditorShow from "../Container/EditorShow";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -32,8 +33,8 @@ const Detail = ({history, user, handleRating, rating}: any) => {
                         수정
                     </Button>}
                 </div>
-                <Card style={{marginTop: '10px', backgroundColor: 'white', minHeight: '400px', width: '100%'}}>
-
+                <Card style={{margin: '10px 0', backgroundColor: 'white', height:'500px', marginBottom: '20px'}}>
+                    <EditorShow content={post.content} />
                 </Card>
                 <div style={{marginTop: '10px', textAlign: 'center'}}>
                     <Button

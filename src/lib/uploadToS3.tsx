@@ -8,7 +8,7 @@ const getPreSignedUrl = async (mimeType:any) => {
     } = await axios.get(process.env.REACT_APP_URL + `/files/upload`, {
       params: { mimeType, type: "image" },
     })
-
+    console.log(url, path)
     return { url, path }
   } catch (error) {
     console.log('error', error)
@@ -17,7 +17,6 @@ const getPreSignedUrl = async (mimeType:any) => {
 }
 
 const actionImgCompress = async (fileSrc: any) => {
-  console.log("압축 시작");
   const options = {
     maxSizeMB: 2,
     maxWidthOrHeight: 600,

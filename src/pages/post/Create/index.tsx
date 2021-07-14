@@ -11,8 +11,6 @@ export default ({match: {path, params}, history}: any) => {
     const [loading, setLoading] = useState<any>(null)
 
     const createPost = async ({submit, ...data}: any) => {
-        // 임시 (에디터 적용 전)
-        data.content = '테스트 내용입니다.'
         data.userId = user.id
         data.categoryId = data.category.id
 

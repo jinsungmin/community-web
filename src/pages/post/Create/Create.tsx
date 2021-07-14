@@ -7,12 +7,14 @@ import {
     Typography,
     Divider
 } from "@material-ui/core";
+
 import styled from "styled-components/macro";
 import {spacing} from "@material-ui/system";
 import SubmitBtn from "../../../components/SubmitBtn";
 import Loader from '../../../components/Loader'
 import TextInput from '../Container/TextInput'
 import SelectInput from '../Container/SelectInput'
+import EditorInput from '../Container/EditorInput'
 import {useSelector} from "react-redux";
 import {getCategoryListReducer} from "../../../redux/reducers";
 
@@ -61,7 +63,8 @@ const Create = ({createPost, userId}: any) => {
                         <TextInput input={title} field='title' handleChange={setTitle} classes={classes}/>
                     </div>
                 </Card>
-                <Card style={{backgroundColor: 'white', height:'400px', marginBottom: '20px'}}>
+                <Card style={{backgroundColor: 'white', height:'500px', marginBottom: '20px'}}>
+                    <EditorInput content={content} setContent={setContent}/>
                 </Card>
                 <div style={{textAlign: 'center'}}>
                     <SubmitBtn submitCheck={submitCheck} title='등록 확인' text='등록 완료' msg='게시물을 등록하시겠습니까?' setSubmit={setSubmit}/>

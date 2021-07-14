@@ -11,7 +11,7 @@ export const useStyles = makeStyles({
     fontWeight: 'bold'
   },
   content: {
-    margin: '0 auto',
+    margin: '0 5%',
     fontSize: '0.9rem',
     maxWidth: '1920px'
   },
