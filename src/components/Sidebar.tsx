@@ -83,7 +83,8 @@ type SidebarCategoryPropsType = {
     isCollapsable: boolean;
     badge?: string | number;
     activeClassName?: string;
-    url: string;
+    url: string | null;
+    type: string;
     history: any;
     button: true;
     onClick?: any;
@@ -94,13 +95,12 @@ type SidebarCategoryPropsType = {
 const SidebarCategory: React.FC<SidebarCategoryPropsType> = ({
                                                                  isOpen,
                                                                  isCollapsable,
-                                                                 name, url, history,
+                                                                 name,type , url, history,
                                                                  ...rest
                                                              }) => {
     return (
-        <div style={{float:'left'}}
-             onClick={() => history.push({
-                 pathname: `/post`,
+        <div onClick={() => history.push({
+                 pathname: `/${type}`,
                  search: `?mid=${name}`,
                  state: {id: url}
              })
@@ -136,13 +136,28 @@ const Sidebar: React.FC<SidebarPropsType> = ({
 
     return (
         open ? <div style={{backgroundColor: 'white'}}>
-            <React.Fragment>
+            {<div style={{display:'flex'}}>
+                <React.Fragment>
+                    <SidebarCategory
+                        isOpen={false}
+                        isCollapsable={false}
+                        name="뉴스"
+                        type="news"
+                        history={history}
+                        url={null}
+                        button={true}
+                        onClick={() => toggle(0)}
+                    />
+                </React.Fragment>
+            </div>}
+            <div style={{display:'flex'}}>
                 {categories.data.map((row: any, index: number) => (
                     <React.Fragment key={index}>
                         <SidebarCategory
                             isOpen={false}
                             isCollapsable={false}
                             name={row.name}
+                            type="post"
                             history={history}
                             url={row.id}
                             button={true}
@@ -150,7 +165,7 @@ const Sidebar: React.FC<SidebarPropsType> = ({
                         />
                     </React.Fragment>))
                 }
-            </React.Fragment>
+            </div>
         </div> : <></>
     );
 };

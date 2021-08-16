@@ -16,6 +16,7 @@ export default (props: any) => {
     const {user}: any = useSelector(getAuthReducer);
     const [rating, setRating] = useState<any>()
 
+    console.log('111', location)
     useEffect(() => {
         const init = async () => {
             try {
@@ -61,5 +62,5 @@ export default (props: any) => {
     }
 
     if (loading) return <Loader />
-    return <Detail user={user} history={history} handleRating={handleRating} rating={rating}/>
+    return <Detail user={user} history={history} params={params} handleRating={handleRating} rating={rating}/>
 }

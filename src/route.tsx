@@ -12,6 +12,8 @@ const ForgotPassword = async(() => import('./pages/auth/ForgotPassword'))
 const SignIn = async(() => import("./pages/auth/SignIn"))
 const SignUp = async(() => import("./pages/auth/SignUp"))
 
+const NewsList = async(() => import("./pages/news/List"))
+
 const PostList = async(() => import("./pages/post/List"))
 const PostDetail = async(() => import("./pages/post/Detail"))
 const PostCreate = async(() => import("./pages/post/Create"))
@@ -57,6 +59,12 @@ export const routes = [
     path: '/',
     component: Layout,
     routes: [
+      {
+        title: '뉴스 목록',
+        path: '/news',
+        component: NewsList,
+        exact: true
+      },
       {
         title: '게시글 목록',
         path: '/post',

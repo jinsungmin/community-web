@@ -14,7 +14,6 @@ export async function findAll(credentials: FindAllType) {
                     params: credentials,
                     method: 'get'
                 }).request()
-                console.log(response)
                 resolve(response)
             } catch (e) {
                 reject(e)

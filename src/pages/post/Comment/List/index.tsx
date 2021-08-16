@@ -21,7 +21,7 @@ export default ({postId, history}: any) => {
         }
         init().then(() => {
         })
-    }, [history])
+    }, [postId])
 
     const deleteComment = async (commentId: number) => {
         try {

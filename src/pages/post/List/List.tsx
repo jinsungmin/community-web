@@ -5,9 +5,7 @@ import {getPostListReducer} from "../../../redux/reducers";
 
 import {
     Button,
-    Typography,
-    Hidden,
-    withWidth
+    Typography
 } from "@material-ui/core";
 
 import Table from '../Container/Table'

@@ -4,8 +4,6 @@ import {
     withStyles,
     MenuItem
 } from "@material-ui/core";
-import {useSelector} from "react-redux";
-import {getCategoryListReducer} from "../../../redux/reducers";
 
 const StyledTextField = withStyles(() => ({
     root: {
@@ -16,7 +14,6 @@ const StyledTextField = withStyles(() => ({
 }))(TextField);
 
 const SelectInput = ({handleChange, input, field, classes, categories}: any) => {
-    console.log(input)
     return (
         categories ?
             <StyledTextField

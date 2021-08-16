@@ -16,9 +16,11 @@ import EditorShow from "../Container/EditorShow";
 
 const Card = styled(MuiCard)(spacing);
 
-const Detail = ({history, user, handleRating, rating}: any) => {
+const Detail = ({history, user, params, handleRating, rating}: any) => {
     const {post}: any = useSelector(getPostDetailReducer);
     const classes = useStyles()
+
+    console.log('test', params)
 
     return (
         <div className={classes.content}>
@@ -28,7 +30,10 @@ const Detail = ({history, user, handleRating, rating}: any) => {
                         {post.title}
                     </Typography>
                     {user.id === post.userId && <Button variant="contained" color="primary" className={classes.createBtn}
-                            onClick={(e: any) => history.push(`/post/edit/${post.id}`)}
+                            onClick={(e: any) => history.push({
+                                pathname: `/post/edit/${post.id}`,
+                                state: params
+                            })}
                     >
                         수정
                     </Button>}

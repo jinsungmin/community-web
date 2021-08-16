@@ -6,25 +6,27 @@ import Edit from './Edit'
 import {getAuthReducer} from "../../../redux/reducers";
 import Loader from "../../../components/Loader";
 
-export default ({match: {path, params}, history}: any) => {
+export default ({match: {path, params}, history, location}: any) => {
     const dispatch = useDispatch()
     const {user}: any = useSelector(getAuthReducer);
     const [loading, setLoading] = useState<any>(null)
+    const {state} = location
 
     useEffect(() => {
         dispatch(getPost(params.id))
     }, [])
 
     const editPost = async ({submit, ...data}: any) => {
-        // 임시 (에디터 적용 전)
-        data.content = '테스트 내용입니다.'
         data.userId = user.id
-
+        data.categoryId = data.category.id
         setLoading(true)
 
         await updateOne(Number(params.id), data).then((res: any) => {
-            console.log('update:', res.data)
-            history.push(`/post`)
+            history.push({
+                pathname: `/post`,
+                search: `?mid=${data.category.name}`,
+                state: {id: data.categoryId}
+            })
             setLoading(false)
         }).catch((error) => {
             setLoading(false)
