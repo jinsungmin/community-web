@@ -480,7 +480,7 @@ export const useStyles = makeStyles({
     backgroundColor: '#1B4086',
     height: '46px',
     lineHeight: '46px',
-    fontSize: '16px',
+    fontSize: '14px',
     fontWeight: 'normal',
     fontStretch: 'normal',
     fontStyle: 'normal',
