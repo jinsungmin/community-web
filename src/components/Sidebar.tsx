@@ -102,7 +102,7 @@ const SidebarCategory: React.FC<SidebarCategoryPropsType> = ({
         <div onClick={() => history.push({
                  pathname: `/${type}`,
                  search: `?mid=${name}`,
-                 state: {id: url}
+                 state: {id: url, name: name}
              })
              }>
             <Category {...rest}>
