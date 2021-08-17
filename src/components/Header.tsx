@@ -110,7 +110,7 @@ const AppBarComponent: React.FC<AppBarProps> = ({onDrawerToggle}) => {
                                         </MenuItem>
                                     </Menu>
                                 </div> : <div style={{flex: 1, textAlign: 'right', color:'white'}}>
-                                    <Button className={classes.headerItem} onClick={(e) => clickSignOut(e)}>
+                                    <Button className={classes.headerItem} style={{color:'white'}} onClick={(e) => clickSignOut(e)}>
                                         로그아웃
                                     </Button></div> : <div style={{flex: 1}}/>}
                         </Grid>
