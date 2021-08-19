@@ -254,7 +254,7 @@ export const useStyles = makeStyles({
   },
   auth_title: {
     height: '107.5px',
-    lineHeight: '107.5px',
+    padding: '30px',
     textAlign: 'center',
   },
   signup_step: {

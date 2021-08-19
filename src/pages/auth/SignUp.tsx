@@ -73,7 +73,11 @@ const SignUp = () => {
                         password: values.password
                     }))
                 await dispatch(getAuth())
-                history.push(`/post`)
+                history.push({
+                    pathname: `/post`,
+                    search: `?mid=일반`,
+                    state: {id: 43242312, name: '일반'}
+                })
                 setLoading(false)
             } catch (error) {
                 console.log(error)

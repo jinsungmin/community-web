@@ -16,7 +16,6 @@ export default (props: any) => {
     const {user}: any = useSelector(getAuthReducer);
     const [rating, setRating] = useState<any>()
 
-    console.log('111', location)
     useEffect(() => {
         const init = async () => {
             try {

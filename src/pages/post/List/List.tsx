@@ -19,7 +19,7 @@ const List = ({user, props}: any) => {
         <div className={classes.content}>
             <div style={{height: '50px', lineHeight: '50px'}}>
                 <Typography variant="h4" style={{float: 'left', marginTop: '10px'}}>
-                    {props.location.state.name} {'>'} 게시글
+                    게시글
                 </Typography>
                 <Button variant="contained" color="primary" className={classes.createBtn}
                         onClick={(e: any) => history.push('/post/create')}

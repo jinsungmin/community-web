@@ -1,25 +1,14 @@
-# STAGE 1
+FROM node:14-alpine
 
-FROM node:14-alpine AS build
+ARG NODE_ENV
+ENV NODE_ENV $NODE_ENV
+
+EXPOSE 5000
 
 WORKDIR /app
 
-COPY package.json ./
+RUN npm install -g serve
 
-RUN npm install
+COPY build ./build
 
-COPY . /app
-
-RUN npm run build
-
-# STAGE 2
-
-FROM nginx:stable-alpine
-
-COPY --from=build /app/build /usr/share/nginx/html
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "serve -s build"]
