@@ -3,6 +3,11 @@ export type SignInType = {
     password: string;
 };
 
+export type SignInSocialType = {
+    type: string;
+    token: string;
+};
+
 export type SignUpType = {
     email: string;
     name: string;

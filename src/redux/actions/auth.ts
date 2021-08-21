@@ -2,6 +2,7 @@ import * as types from "../../constants";
 import {AppDispatchType} from "../store";
 import {
   SignInType,
+  SignInSocialType,
   SignUpType,
   ResetPasswordType
 } from "../../types/auth";
@@ -9,7 +10,8 @@ import {
   signIn as authSignIn,
   signUp as authSignUp,
   resetPassword as authResetPassword,
-  getAuth as authGetAuth
+  getAuth as authGetAuth,
+  signInSocial as authSignInSocial
 } from "../../services/authService";
 
 export function getAuth() {
@@ -55,6 +57,26 @@ export function signIn(credentials: SignInType) {
         dispatch({type: types.AUTH_SIGN_IN_FAILURE});
         throw error;
       });
+  };
+}
+
+export function signInSocial(credentials: SignInSocialType) {
+  return async (dispatch: AppDispatchType) => {
+    dispatch({type: types.AUTH_SIGN_IN_REQUEST});
+
+    return authSignInSocial(credentials)
+        .then((response: any) => {
+          const {type, ...user} = response.user
+          dispatch({
+            type: types.AUTH_SIGN_IN_SUCCESS,
+            role: type,
+            ...user
+          });
+        })
+        .catch((error) => {
+          dispatch({type: types.AUTH_SIGN_IN_FAILURE});
+          throw error;
+        });
   };
 }
 

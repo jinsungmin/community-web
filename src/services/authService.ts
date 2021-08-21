@@ -1,6 +1,7 @@
 import {
   ResetPasswordType,
   SignInType,
+  SignInSocialType,
   SignUpType,
   SignUpVerifyConfirmType,
   VerifyEmailType,
@@ -27,11 +28,8 @@ export async function getAuth() {
           JSON.stringify({
             role: type,
             ...user
-            //name: response.data.user.name,
-            //profileUrl: response.data.user.profileUrl,
           })
         );
-
         resolve(response)
       } catch (e) {
         reject(e)
@@ -97,6 +95,39 @@ export function signIn(credentials: SignInType) {
       }
     }
   )
+}
+
+export function signInSocial(credentials: SignInSocialType) {
+    return new Promise(async (resolve, reject) => {
+            const path = '/auth/social'
+            try {
+                const response: any = await new ApiRoute({
+                    path: path,
+                    params: {...credentials},
+                    method: 'post'
+                }).request()
+                const {type, ...user} = response.data.user
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify({
+                        role: type,
+                        ...user
+                    })
+                );
+                localStorage.setItem(
+                    "accessToken",
+                    JSON.stringify(response.data.accessToken)
+                )
+                localStorage.setItem(
+                    "refreshToken",
+                    JSON.stringify(response.data.refreshToken)
+                )
+                resolve(response.data)
+            } catch (e) {
+                reject(e)
+            }
+        }
+    )
 }
 
 export function verifyEmail(credentials: VerifyEmailType) {

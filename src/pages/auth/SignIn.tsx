@@ -7,6 +7,8 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useStyles} from '../../css/style'
 import {spacing} from "@material-ui/system";
+import GoogleLoginBtn from './Container/GoogleLoginBtn'
+
 import {
     Button,
     withWidth,
@@ -155,6 +157,8 @@ const SignIn = () => {
                                     회원 가입
                                 </Button>
                             </div>
+                            <GoogleLoginBtn history={history}/>
+
                         </div>
                     </div>
                 </form>
