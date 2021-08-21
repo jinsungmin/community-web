@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import {useStyles} from '../../css/style'
 import {spacing} from "@material-ui/system";
 import GoogleLoginBtn from './Container/GoogleLoginBtn'
+import KakaoLoginBtn from './Container/KakaoLoginBtn'
 
 import {
     Button,
@@ -86,7 +87,7 @@ const SignIn = () => {
 
     return (
         <div className={classes.login_form}>
-            <Card style={{height: '550px', backgroundColor: 'white'}}>
+            <Card style={{height: '620px', backgroundColor: 'white'}}>
                 <Typography variant="h3" style={{
                     height: '107.5px',
                     lineHeight: '107.5px',
@@ -157,8 +158,10 @@ const SignIn = () => {
                                     회원 가입
                                 </Button>
                             </div>
-                            <GoogleLoginBtn history={history}/>
-
+                            <div style={{margin: '10px'}}>
+                                <GoogleLoginBtn history={history}/>
+                            </div>
+                            <KakaoLoginBtn history={history}/>
                         </div>
                     </div>
                 </form>

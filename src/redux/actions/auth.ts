@@ -102,9 +102,7 @@ export function signUp(credentials: SignUpType) {
 
 export function signOut() {
   return async (dispatch: AppDispatchType) => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    localStorage.clear()
     dispatch({
       type: types.AUTH_SIGN_OUT
     });

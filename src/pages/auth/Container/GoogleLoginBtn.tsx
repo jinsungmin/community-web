@@ -5,20 +5,10 @@ import {useDispatch} from "react-redux";
 
 const GoogleLoginBtn = (props: any) => {
     const {history} = props
-    //클라이언트 ID (환경변수)
     let googleClientId:string=process.env.REACT_APP_GOOGLE_CLIENT_ID || "";
     const dispatch = useDispatch();
-    //사용자 정보를 담아둘 userObj
-    const [userObj, setUserObj]=React.useState({
-        email:"",
-        name:""
-    })
-    //로그인 성공시 res처리
+
     const onLoginSuccess = async (res:any)=>{
-        setUserObj({...userObj,
-            email:res.profileObj.email,
-            name:res.profileObj.name
-        })
         await dispatch(
             signInSocial({
                 type: 'google',
@@ -26,7 +16,6 @@ const GoogleLoginBtn = (props: any) => {
             })
         );
         await dispatch(getAuth())
-
         history.push({
             pathname: `/post`,
             search: `?mid=일반`,
@@ -42,7 +31,6 @@ const GoogleLoginBtn = (props: any) => {
                 onSuccess={result=>onLoginSuccess(result)}
                 onFailure={result => console.log(result)}
             />
-
         </div>
     );
 };
