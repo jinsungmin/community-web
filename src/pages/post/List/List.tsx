@@ -15,6 +15,8 @@ const List = ({user, props, loadNextPosts}: any) => {
     const classes = useStyles()
 
     const {posts}: any = useSelector(getPostListReducer);
+
+    console.log(posts)
     return (
         <div className={classes.content}>
             <div style={{height: '50px', lineHeight: '50px'}}>
@@ -34,4 +36,4 @@ const List = ({user, props, loadNextPosts}: any) => {
     )
 }
 
-export default List
+export default React.memo(List)

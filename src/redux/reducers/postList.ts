@@ -30,11 +30,20 @@ export default function reducer(
                     data: [...state.posts.data, ...actions.data]
                 }
             };
-        case types.POST_CREATE_SUCCESS:
+        case types.POST_LIST_INIT_SUCCESS:
             return {
                 ...state,
                 posts: {
                     ...actions
+                }
+            };
+        case types.POST_CREATE_SUCCESS:
+            console.log('test::', actions)
+            return {
+                ...state,
+                posts: {
+                    total: state.posts.total + 1,
+                    data: [...state.posts.data, actions]
                 }
             };
         case types.POST_UPDATE_SUCCESS:

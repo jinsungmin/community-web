@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import {getAuthReducer} from "../../../redux/reducers";
-import {getPosts} from "../../../redux/actions/post"
+import {getPostsInit, getPosts} from "../../../redux/actions/post"
 import Loader from '../../../components/Loader'
 import List from './List'
 
@@ -14,17 +14,16 @@ export default (props: any) => {
     useEffect(() => {
         const init = async () => {
             try {
-                dispatch(getPosts({start: 0, perPage:25, categoryId: location.state.id}))
+                await dispatch(getPostsInit({start: 0, perPage:25, categoryId: location.state.id}))
             } catch(e) {
                 console.log(e)
                 history.push(`/error/500`)
             }
         }
-        setLoading(true)
         init().then(() => {
             setLoading(false)
         })
-    }, [location])
+    }, [history])
 
     const loadNextPosts = async (page: number) => {
         try {
@@ -36,5 +35,5 @@ export default (props: any) => {
     }
 
     if (loading) return <Loader />
-    return <List user={user} props={props} loadNextPosts={loadNextPosts}/>
+    else return <List user={user} props={props} loadNextPosts={loadNextPosts}/>
 }

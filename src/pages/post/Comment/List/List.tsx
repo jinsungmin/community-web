@@ -14,8 +14,7 @@ import { useInView } from "react-intersection-observer"
 const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 
-const List = ({user, history, page, deleteComment, loadNextComment}: any) => {
-    const {comments}: any = useSelector(getCommentListReducer);
+const List = ({user, history, comments, page, deleteComment, loadNextComment}: any) => {
     const [ref, inView] = useInView()
 
     useEffect(() => {

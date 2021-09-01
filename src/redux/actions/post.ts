@@ -8,7 +8,8 @@ import {
 } from "../../types/post";
 import {
     findAll,
-    findOne
+    findOne,
+    create
 } from "../../services/postService";
 
 export function getPosts(credentials: FindAllType) {
@@ -17,8 +18,6 @@ export function getPosts(credentials: FindAllType) {
 
         return findAll(credentials)
             .then((res: any) => {
-                console.log(res)
-
                 dispatch({
                     type: types.POST_LIST_SUCCESS,
                     ...res.data
@@ -26,6 +25,24 @@ export function getPosts(credentials: FindAllType) {
             })
             .catch(async (error) => {
                 dispatch({type: types.POST_LIST_FAILURE});
+                throw error;
+            });
+    }
+}
+
+export function getPostsInit(credentials: FindAllType) {
+    return async (dispatch: AppDispatchType) => {
+        dispatch({type: types.POST_LIST_INIT_SUCCESS});
+
+        return findAll(credentials)
+            .then((res: any) => {
+                dispatch({
+                    type: types.POST_LIST_INIT_SUCCESS,
+                    ...res.data
+                });
+            })
+            .catch(async (error) => {
+                dispatch({type: types.POST_LIST_INIT_SUCCESS});
                 throw error;
             });
     }
@@ -44,6 +61,24 @@ export function getPost(id:number) {
             })
             .catch(async (error) => {
                 dispatch({type: types.POST_DETAIL_FAILURE});
+                throw error;
+            });
+    }
+}
+
+export function createPosts(credentials: CreateType) {
+    return async (dispatch: AppDispatchType) => {
+        dispatch({type: types.POST_CREATE_REQUEST});
+
+        return create(credentials)
+            .then((res: any) => {
+                dispatch({
+                    type: types.POST_CREATE_SUCCESS,
+                    ...res.data
+                });
+            })
+            .catch(async (error) => {
+                dispatch({type: types.POST_CREATE_FAILURE});
                 throw error;
             });
     }

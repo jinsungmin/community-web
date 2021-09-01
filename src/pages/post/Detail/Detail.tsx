@@ -20,8 +20,6 @@ const Detail = ({history, user, params, handleRating, rating}: any) => {
     const {post}: any = useSelector(getPostDetailReducer);
     const classes = useStyles()
 
-    console.log('test', params)
-
     return (
         <div className={classes.content}>
             {post && <div style={{display: 'block'}}>
