@@ -9,11 +9,12 @@ import List from './List'
 export default ({postId, history}: any) => {
     const dispatch = useDispatch()
     const {user}: any = useSelector(getAuthReducer);
+    const [page, setPage] = useState<number>(0)
 
     useEffect(() => {
         const init = async () => {
             try {
-                dispatch(getComments({postId, start: 0, perPage: 10}))
+                await dispatch(getComments({postId, start: 0, perPage: 10}))
             } catch(e) {
                 console.log(e)
                 history.push(`/error/500`)
@@ -22,6 +23,17 @@ export default ({postId, history}: any) => {
         init().then(() => {
         })
     }, [postId])
+
+    const loadNextComment = async (page: number) => {
+        try {
+            setPage(page)
+
+            await dispatch(getComments({postId, start: page * 10, perPage: 10}))
+        } catch(e) {
+            console.log(e)
+            history.push(`/error/500`)
+        }
+    }
 
     const deleteComment = async (commentId: number) => {
         try {
@@ -33,5 +45,5 @@ export default ({postId, history}: any) => {
         }
     }
 
-    return <List user={user} history={history} deleteComment={deleteComment} />
+    return <List user={user} history={history} page={page} deleteComment={deleteComment} loadNextComment={loadNextComment} />
 }

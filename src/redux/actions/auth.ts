@@ -102,7 +102,11 @@ export function signUp(credentials: SignUpType) {
 
 export function signOut() {
   return async (dispatch: AppDispatchType) => {
+    var date = new Date()
+    date.setDate(date.getDate() - 1);
+
     localStorage.clear()
+    document.cookie = `Expires=${date.toUTCString()}`
     dispatch({
       type: types.AUTH_SIGN_OUT
     });

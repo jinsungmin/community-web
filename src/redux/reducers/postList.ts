@@ -1,6 +1,6 @@
 import * as types from "../../constants";
 import {PostType} from "../../types/post";
-
+/*
 const getPosts = (): PostType | undefined => {
     const posts = localStorage.getItem("posts");
     if (posts) {
@@ -9,35 +9,40 @@ const getPosts = (): PostType | undefined => {
         return undefined;
     }
 };
-
+*/
 const initialState = {
-    post: getPosts()
+    posts: {
+        total: 0,
+        data: []
+    }
 };
 
 export default function reducer(
-    state: {post: PostType | undefined} = initialState,
-    actions: PostType & {type: string}
-): {post: PostType | undefined} {
+    state = initialState,
+    actions: any
+): {posts: any} {
     switch (actions.type) {
         case types.POST_LIST_SUCCESS:
-            console.log(actions)
             return {
                 ...state,
-                post: {
-                    ...actions
+                posts: {
+                    total: actions.total,
+                    data: [...state.posts.data, ...actions.data]
                 }
             };
         case types.POST_CREATE_SUCCESS:
             return {
                 ...state,
-                post: {
+                posts: {
                     ...actions
                 }
             };
         case types.POST_UPDATE_SUCCESS:
             return {
                 ...state,
-                post: undefined
+                posts: {
+                    ...actions
+                }
             };
         default:
             return state;

@@ -15,15 +15,14 @@ export function getComments(credentials: FindAllType) {
     return async (dispatch: AppDispatchType) => {
         dispatch({type: types.COMMENT_LIST_REQUEST});
 
-        console.log(credentials)
         return findAll(credentials)
             .then((res: any) => {
-                console.log(res)
-
-                dispatch({
-                    type: types.COMMENT_LIST_SUCCESS,
-                    ...res.data
-                });
+                if (res.data.data.length) {
+                    dispatch({
+                        type: types.COMMENT_LIST_SUCCESS,
+                        ...res.data
+                    });
+                }
             })
             .catch(async (error) => {
                 dispatch({type: types.COMMENT_LIST_FAILURE});

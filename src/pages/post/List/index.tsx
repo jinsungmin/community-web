@@ -8,7 +8,7 @@ import List from './List'
 export default (props: any) => {
     const {history, location} = props
     const dispatch = useDispatch()
-    const [loading, setLoading] = useState<any>(null)
+    const [loading, setLoading] = useState<any>(true)
     const {user}: any = useSelector(getAuthReducer);
 
     useEffect(() => {
@@ -26,6 +26,15 @@ export default (props: any) => {
         })
     }, [location])
 
+    const loadNextPosts = async (page: number) => {
+        try {
+            await dispatch(getPosts({start: page * 10, perPage:25, categoryId: location.state.id}))
+        } catch(e) {
+            console.log(e)
+            history.push(`/error/500`)
+        }
+    }
+
     if (loading) return <Loader />
-    return <List user={user} props={props} />
+    return <List user={user} props={props} loadNextPosts={loadNextPosts}/>
 }

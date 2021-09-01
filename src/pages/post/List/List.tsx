@@ -10,11 +10,11 @@ import {
 
 import Table from '../Container/Table'
 
-const List = ({user, props}: any) => {
+const List = ({user, props, loadNextPosts}: any) => {
     const {history, location} = props
     const classes = useStyles()
 
-    const {post}: any = useSelector(getPostListReducer);
+    const {posts}: any = useSelector(getPostListReducer);
     return (
         <div className={classes.content}>
             <div style={{height: '50px', lineHeight: '50px'}}>
@@ -28,7 +28,7 @@ const List = ({user, props}: any) => {
                 </Button>
             </div>
             <div>
-                <Table post={post} history={history} location={location}/>
+                <Table post={posts} history={history} location={location} loadNextPosts={loadNextPosts}/>
             </div>
         </div>
     )

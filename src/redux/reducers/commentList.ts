@@ -1,6 +1,7 @@
 import * as types from "../../constants";
 import {CommentType} from "../../types/comment";
 
+/*
 const getComments = (): CommentType | undefined => {
     const comments = localStorage.getItem("comments");
     if (comments) {
@@ -9,21 +10,26 @@ const getComments = (): CommentType | undefined => {
         return undefined;
     }
 };
+/*/
 
 const initialState = {
-    comments: getComments()
+    comments: {
+        total: 0,
+        data: []
+    }
 };
 
 export default function reducer(
-    state: {comments: CommentType | undefined} = initialState,
-    actions: CommentType & {type: string}
-): {comments: CommentType | undefined} {
+    state: any = initialState,
+    actions: any
+): any {
     switch (actions.type) {
         case types.COMMENT_LIST_SUCCESS:
             return {
                 ...state,
                 comments: {
-                    ...actions
+                    total: actions.total,
+                    data: [...state.comments.data, ...actions.data]
                 }
             };
         case types.COMMENT_CREATE_SUCCESS:
