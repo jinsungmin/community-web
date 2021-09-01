@@ -38,7 +38,6 @@ export default function reducer(
                 }
             };
         case types.POST_CREATE_SUCCESS:
-            console.log('test::', actions)
             return {
                 ...state,
                 posts: {

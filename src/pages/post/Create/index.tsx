@@ -14,6 +14,7 @@ export default ({match: {path, params}, history}: any) => {
 
     const createPost = async ({submit, ...data}: any) => {
         data.userId = user.id
+        //data.userName = user.name
         data.categoryId = data.category.id
 
         try {

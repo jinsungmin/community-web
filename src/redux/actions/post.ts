@@ -32,7 +32,7 @@ export function getPosts(credentials: FindAllType) {
 
 export function getPostsInit(credentials: FindAllType) {
     return async (dispatch: AppDispatchType) => {
-        dispatch({type: types.POST_LIST_INIT_SUCCESS});
+        dispatch({type: types.POST_LIST_INIT_REQUEST});
 
         return findAll(credentials)
             .then((res: any) => {
@@ -42,7 +42,7 @@ export function getPostsInit(credentials: FindAllType) {
                 });
             })
             .catch(async (error) => {
-                dispatch({type: types.POST_LIST_INIT_SUCCESS});
+                dispatch({type: types.POST_LIST_INIT_FAILURE});
                 throw error;
             });
     }

@@ -32,11 +32,19 @@ export default function reducer(
                     data: [...state.comments.data, ...actions.data]
                 }
             };
-        case types.COMMENT_CREATE_SUCCESS:
+        case types.COMMENT_LIST_INIT_SUCCESS:
             return {
                 ...state,
                 comments: {
                     ...actions
+                }
+            };
+        case types.COMMENT_CREATE_SUCCESS:
+            return {
+                ...state,
+                comments: {
+                    total: state.comments.total + 1,
+                    data: [...state.comments.data, actions]
                 }
             };
         case types.COMMENT_UPDATE_SUCCESS:

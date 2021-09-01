@@ -1,31 +1,35 @@
 import React, {useCallback, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {create} from '../../../../services/commentService'
+//import {create} from '../../../../services/commentService'
 
 import Create from './Create'
 import {getAuthReducer} from "../../../../redux/reducers";
-import {getComments} from "../../../../redux/actions/comment";
+import {createComment} from "../../../../redux/actions/comment";
+import {findAll} from "../../../../services/commentService";
 
-export default ({postId, commentId, history, type}: any) => {
+export default ({postId, commentId, child, setChild, history, type}: any) => {
     const {user}: any = useSelector(getAuthReducer);
     const dispatch = useDispatch()
 
-    const createComment = async ({submit, ...data}: any) => {
+    const addComment = async ({submit, ...data}: any) => {
         data.postId = postId
         if (type === 'comment') {
             data.parentId = commentId
         }
         data.userId = user.id
+        data.userName = user.name
 
-        await create(data).then((res: any) => {
-            if (res.status === 201) {
-                dispatch(getComments({postId, start: 0, perPage: 10}))
+        try {
+            await dispatch(createComment(data))
+            if (type === 'comment') {
+                const res: any= await findAll({start: 0, perPage: 10, parentId:data.parentId})
+                setChild({...child, [data.parentId]: {...res.data, open: true}})
             }
-        }).catch((error) => {
+        } catch(error) {
             history.push('/error/500')
             throw error;
-        })
+        }
     }
 
-    return <Create createComment={createComment} userId={user.id}/>
+    return <Create createComment={addComment} userId={user.id}/>
 }

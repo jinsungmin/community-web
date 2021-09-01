@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Divider, Typography} from "@material-ui/core";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
@@ -9,10 +9,9 @@ import Edit from "../Edit";
 import SubdirectoryArrowRightTwoToneIcon from "@material-ui/icons/SubdirectoryArrowRightTwoTone";
 import {findAll} from "../../../../services/commentService";
 
-const Detail = ({index, row, user, history, ref, deleteComment}: any) => {
+const Detail = ({row, user, page, history, child, setChild, deleteComment}: any) => {
     const [add, setAdd] = useState<any>(null)
     const [update, setUpdate] = useState<any>(null)
-    const [child, setChild] = useState<any>({})
 
     const addComment = (id: number) => {
         if (id === add) setAdd(null)
@@ -47,7 +46,7 @@ const Detail = ({index, row, user, history, ref, deleteComment}: any) => {
                 <div style={{width: '20%', marginTop: '5px'}}>
                     {user.id === row.userId &&
                     <div style={{float: 'right'}}
-                         onClick={(e) => deleteComment(row.id)}
+                         onClick={(e) => deleteComment({id: row.id})}
                     >
                         <DeleteOutlinedIcon style={{cursor: 'pointer'}}/>
                     </div>}
@@ -71,12 +70,12 @@ const Detail = ({index, row, user, history, ref, deleteComment}: any) => {
             </div>
             <Divider/>
             {row.id === add && <div style={{padding: '5px 10px'}}>
-                <Create postId={row.postId} commentId={row.id} history={history} type="comment"/>
+                <Create postId={row.postId} child={child} setChild={setChild} commentId={row.id} history={history} type="comment"/>
             </div>}
             {row.id === update && <div style={{padding: '5px 10px'}}>
-                <Edit comment={row} history={history} />
+                <Edit comment={row} child={child} setChild={setChild} history={history} page={page}/>
             </div>}
-            {row.id in child && child[row.id].open && child[row.id].data.map((row: any, index: number) =>
+            {row.id in child && child[row.id].open && child[row.id].data.map((row2: any, index: number) =>
                 <div key={index}>
                     <div style={{padding: '5px 10px', display: 'flex'}}>
                         <div style={{marginTop: '5px'}}>
@@ -84,30 +83,30 @@ const Detail = ({index, row, user, history, ref, deleteComment}: any) => {
                         </div>
                         <div style={{width: '80%', paddingLeft: '10px'}}>
                             <Typography>
-                                작성자: {row.userName}
+                                작성자: {row2.userName}
                             </Typography>
                             <Typography>
-                                {row.content}
+                                {row2.content}
                             </Typography>
                         </div>
                         <div style={{width: '20%', marginTop: '5px'}}>
-                            {user.id === row.userId &&
+                            {user.id === row2.userId &&
                             <div style={{float: 'right'}}
-                                 onClick={(e) => deleteComment(row.id)}
+                                 onClick={(e) => deleteComment({id:row2.id, parentId: row.id, clicked: child})}
                             >
                                 <DeleteOutlinedIcon style={{cursor: 'pointer'}}/>
                             </div>}
-                            {user.id === row.userId &&
+                            {user.id === row2.userId &&
                             <div style={{float: 'right'}}
-                                 onClick={(e) => updateComment(row.id)}
+                                 onClick={(e) => updateComment(row2.id)}
                             >
                                 <EditOutlinedIcon style={{cursor: 'pointer'}}/>
                             </div>}
                         </div>
                     </div>
                     <Divider/>
-                    {row.id === update && <div style={{padding: '5px 10px'}}>
-                        <Edit comment={row} history={history} />
+                    {row2.id === update && <div style={{padding: '5px 10px'}}>
+                        <Edit comment={row2} child={child} setChild={setChild} history={history} page={page} />
                     </div>}
                 </div>
             )

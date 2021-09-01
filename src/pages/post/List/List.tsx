@@ -16,7 +16,6 @@ const List = ({user, props, loadNextPosts}: any) => {
 
     const {posts}: any = useSelector(getPostListReducer);
 
-    console.log(posts)
     return (
         <div className={classes.content}>
             <div style={{height: '50px', lineHeight: '50px'}}>

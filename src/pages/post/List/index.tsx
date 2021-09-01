@@ -23,7 +23,7 @@ export default (props: any) => {
         init().then(() => {
             setLoading(false)
         })
-    }, [history])
+    }, [props])
 
     const loadNextPosts = async (page: number) => {
         try {

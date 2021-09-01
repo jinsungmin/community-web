@@ -3,12 +3,12 @@ import {AppDispatchType} from "../store";
 import {
     CommentType,
     CreateType,
-    UpdateType,
     FindAllType
 } from "../../types/comment";
 import {
     findAll,
-    findOne
+    findOne,
+    create
 } from "../../services/commentService";
 
 export function getComments(credentials: FindAllType) {
@@ -26,6 +26,44 @@ export function getComments(credentials: FindAllType) {
             })
             .catch(async (error) => {
                 dispatch({type: types.COMMENT_LIST_FAILURE});
+                throw error;
+            });
+    }
+}
+
+export function getCommentsInit(credentials: FindAllType) {
+    return async (dispatch: AppDispatchType) => {
+        dispatch({type: types.COMMENT_LIST_INIT_REQUEST});
+
+        return findAll(credentials)
+            .then((res: any) => {
+                dispatch({
+                    type: types.COMMENT_LIST_INIT_SUCCESS,
+                    ...res.data
+                });
+            })
+            .catch(async (error) => {
+                dispatch({type: types.COMMENT_LIST_INIT_FAILURE});
+                throw error;
+            });
+    }
+}
+
+export function createComment(credentials: CreateType) {
+    return async (dispatch: AppDispatchType) => {
+        dispatch({type: types.COMMENT_CREATE_REQUEST});
+
+        return create(credentials)
+            .then((res: any) => {
+                if(!res.data.parentId) {
+                    dispatch({
+                        type: types.COMMENT_CREATE_SUCCESS,
+                        ...res.data
+                    });
+                }
+            })
+            .catch(async (error) => {
+                dispatch({type: types.COMMENT_CREATE_FAILURE});
                 throw error;
             });
     }

@@ -14,9 +14,9 @@ import { useInView } from "react-intersection-observer"
 const Card = styled(MuiCard)(spacing);
 const Paper = styled(MuiPaper)(spacing);
 
-const List = ({user, history, comments, page, deleteComment, loadNextComment}: any) => {
+const List = ({user, history, page, child, setChild, deleteComment, loadNextComment}: any) => {
+    const {comments}: any = useSelector(getCommentListReducer);
     const [ref, inView] = useInView()
-
     useEffect(() => {
         // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
         if (inView) {
@@ -29,13 +29,13 @@ const List = ({user, history, comments, page, deleteComment, loadNextComment}: a
         <Card mb={6} style={{margin: 0, width: '100%'}}>
             <Paper>
                 <div style={{backgroundColor: 'white', marginTop: '20px'}}>
-                    {comments && comments.data.map((row: any, index: number) => (
+                    {comments.data && comments.data.map((row: any, index: number) => (
                         comments.data.length -1 === index ?
                             <div key={index} ref={ref}>
-                                <Detail row={row} user={user} history={history} deleteComment={deleteComment} />
+                                <Detail row={row} user={user} child={child} setChild={setChild} page={page} history={history} deleteComment={deleteComment} />
                             </div>
                              : <div key={index}>
-                                 <Detail row={row} user={user} history={history} deleteComment={deleteComment} />
+                                 <Detail row={row} user={user} child={child} setChild={setChild} page={page} history={history} deleteComment={deleteComment} />
                             </div>
 
                     ))}
@@ -46,4 +46,4 @@ const List = ({user, history, comments, page, deleteComment, loadNextComment}: a
     )
 }
 
-export default List
+export default React.memo(List)
