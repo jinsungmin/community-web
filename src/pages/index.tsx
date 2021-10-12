@@ -6,6 +6,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 
 import {useSelector, useDispatch} from "react-redux";
+import {useHistory} from 'react-router-dom';
 import {getAuthReducer} from "../redux/reducers";
 
 import {spacing} from "@material-ui/system";
@@ -75,6 +76,8 @@ const Layout: React.FC<DashboardPropsType> = ({
                                               }) => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [title, setTitle] = useState('');
+    const history = useHistory();
+    const {user}: any = useSelector(getAuthReducer);
     const dispatch = useDispatch()
 
     const handleDrawerToggle = () => {
@@ -82,10 +85,19 @@ const Layout: React.FC<DashboardPropsType> = ({
     };
 
     useEffect(() => {
-        dispatch(getCategories({}))
-        const url = window.location.pathname.split('/')[1]
-        if (url)
-            dispatch(getAuth())
+        if (user) {
+            dispatch(getCategories({}))
+            const url = window.location.pathname.split('/')[1]
+            if (url)
+                dispatch(getAuth())
+            history.push({
+                pathname: `/post`,
+                search: `?mid=일반`,
+                state: {id: 43242312}
+            })
+        } else {
+            history.push('/auth/login')
+        }
     }, [])
 
     return (
