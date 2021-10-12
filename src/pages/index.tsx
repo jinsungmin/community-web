@@ -96,7 +96,7 @@ const Layout: React.FC<DashboardPropsType> = ({
                 state: {id: 43242312}
             })
         } else {
-            history.push('/auth/login')
+            history.push('/auth/sign-in')
         }
     }, [])
 
