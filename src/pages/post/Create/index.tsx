@@ -36,7 +36,6 @@ export default ({match: {path, params}, history}: any) => {
         /*
         await create(data).then((res: any) => {
             if (res.status === 201) {
-                console.log('create:', res.data)
                 history.push({
                     pathname: `/post`,
                     search: `?mid=${data.category.name}`,
