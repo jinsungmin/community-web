@@ -90,11 +90,13 @@ const Layout: React.FC<DashboardPropsType> = ({
             const url = window.location.pathname.split('/')[1]
             if (url)
                 dispatch(getAuth())
-            history.push({
-                pathname: `/post`,
-                search: `?mid=일반`,
-                state: {id: 43242312}
-            })
+            else {
+                history.push({
+                    pathname: `/post`,
+                    search: `?mid=일반`,
+                    state: {id: 43242312}
+                })
+            }
         } else {
             history.push('/auth/sign-in')
         }
