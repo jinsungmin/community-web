@@ -16,7 +16,7 @@ export default ({match: {path, params}, history}: any) => {
         data.userId = user.id
         //data.userName = user.name
         data.categoryId = data.category.id
-
+        console.log("test:", data)
         try {
             setLoading(true)
 
